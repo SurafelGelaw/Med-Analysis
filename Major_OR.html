@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Yekatit 12 HMC DB</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript">
+        window.onload = function() {
+          var dps = []; //dataPoints.
+          var dp = [];
+          var dp1 = [];
+          var dp2 = [];
+          var dp3 = [];
+          var dp4 = [];
+          var dp5 = [];
+
+
+          var chart = new CanvasJS.Chart("chartContainer", {
+              title: {
+                  text: "Visualization of Medical data"
+              },
+              axisX:{
+      title: "timeline",
+      gridThickness: 2
+  },
+  axisY: {
+      title: "Number of patients"
+  },
+  legend:{
+        fontSize: 20,
+        fontFamily: "tamoha",
+        horizontalAlign: "left", // left, center ,right
+     verticalAlign: "center",
+        fontColor: "Sienna"
+      },
+              exportFileName: "Patient Data",  //Give any name accordingly
+  exportEnabled: true,
+              data: [{
+                  type: "line",
+                      showInLegend: true,
+                  dataPoints: dps
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp1
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp2
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp3
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp4
+              },
+              {
+                type: "line",
+                    showInLegend: true,
+                dataPoints: dp5
+              }
+
+            ]
+          });
+
+          function addDataPointsAndRender() {
+              xValue = new Date(document.getElementById("xValue").value);
+              yValue = Number(document.getElementById("yValue").value);
+              x1 = new Date(document.getElementById("x1").value);
+              y1 = Number(document.getElementById("y1").value);
+              x2 = new Date(document.getElementById("x2").value);
+              y2 = Number(document.getElementById("y2").value);
+              x3 = new Date(document.getElementById("x3").value);
+              y3 = Number(document.getElementById("y3").value);
+              x4 = new Date(document.getElementById("x4").value);
+              y4 = Number(document.getElementById("y4").value);
+              x5 = new Date(document.getElementById("x5").value);
+              y5 = Number(document.getElementById("y5").value);
+              x6 = new Date(document.getElementById("x6").value);
+              y6 = Number(document.getElementById("y6").value);
+
+
+
+              dps.push({
+                  x: xValue,
+                  y: yValue
+              });
+              dp.push({
+                  x: x1,
+                  y: y1
+              });
+              dp1.push({
+                  x: x2,
+                  y: y2
+              });
+              dp2.push({
+                  x: x3,
+                  y: y3
+              });
+              dp3.push({
+                  x: x4,
+                  y: y4
+              });
+              dp4.push({
+                  x: x5,
+                  y: y5
+              });
+              dp5.push({
+                  x: x6,
+                  y: y6
+              });
+
+              chart.render();
+
+          }
+
+          var renderButton = document.getElementById("renderButton");
+          var render = document.getElementById("render");
+          var render1 = document.getElementById("render1");
+          var render2 = document.getElementById("render2");
+          var render3 = document.getElementById("render3");
+          var render4 = document.getElementById("render4");
+          var render5 = document.getElementById("render5");
+
+          renderButton.addEventListener("click", addDataPointsAndRender);
+          render.addEventListener("click", addDataPointsAndRender);
+          render1.addEventListener("click", addDataPointsAndRender);
+          render2.addEventListener("click", addDataPointsAndRender);
+          render3.addEventListener("click", addDataPointsAndRender);
+          render4.addEventListener("click", addDataPointsAndRender);
+          render5.addEventListener("click", addDataPointsAndRender);
+
+          console.log(dps);
+          console.log(dp);
+
+          document.getElementById("downloadCSV").addEventListener("click", function(){
+            downloadCSV({ filename: "Major-OR-data.csv", chart: chart })
+          });
+
+
+
+          function convertChartDataToCSV(args) {
+            var result, ctr, keys, columnDelimiter, lineDelimiter, data;
+
+            data = args.data || null;
+            if (data == null || !data.length) {
+              return null;
+            }
+
+            columnDelimiter = args.columnDelimiter || ',';
+            lineDelimiter = args.lineDelimiter || '\n';
+
+            keys = Object.keys(data[0]);
+
+            result = '';
+            result += keys.join(columnDelimiter);
+            result += lineDelimiter;
+
+            data.forEach(function(item) {
+              ctr = 0;
+              keys.forEach(function(key) {
+                if (ctr > 0) result += columnDelimiter;
+                result += item[key];
+                ctr++;
+              });
+              result += lineDelimiter;
+            });
+            return result;
+          }
+
+          function downloadCSV(args) {
+            var data, filename, link;
+            var csv = "";
+            for(var i = 0; i < args.chart.options.data.length; i++){
+              csv += convertChartDataToCSV({
+                data: args.chart.options.data[i].dataPoints
+              });
+            }
+            if (csv == null) return;
+
+            filename = args.filename || 'Major-OR-data.csv';
+
+            if (!csv.match(/^data:text\/csv/i)) {
+              csv = 'data:text/csv;charset=utf-8,' + csv;
+            }
+
+            data = encodeURI(csv);
+            link = document.createElement('a');
+            link.setAttribute('href', data);
+            link.setAttribute('download', filename);
+            document.body.appendChild(link); // Required for FF
+            link.click();
+            document.body.removeChild(link);
+          }
+
+
+        }
+
+    </script>
+    <script type="text/javascript" src="canvas.js"></script>
+    <script src="canvasjsascsv.min.js"> </script>
+  </head>
+  <body>
+
+  <header>
+    <div class="main">
+      <img src="images/pic5.png" alt="logo" class="logo" height="50" width="50" title="MedAnalysis">
+      <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+
+        
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </nav>
+      </div>
+
+  </header>
+
+
+      Date:
+      <input id="xValue" type="date" step="any" placeholder="Enter X-Value">General Surgery:
+      <input id="yValue" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="renderButton">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x1" type="date" step="any" placeholder="Enter X-Value">Gynecology:
+      <input id="y1" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x2" type="date" step="any" placeholder="Enter X-Value">Orthopedics:
+      <input id="y2" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render1">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x3" type="date" step="any" placeholder="Enter X-Value">ENT:
+      <input id="y3" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render2">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x4" type="date" step="any" placeholder="Enter X-Value">Maxillofacial:
+      <input id="y4" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render3">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x5" type="date" step="any" placeholder="Enter X-Value">Neurosurgery:
+      <input id="y5" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render4">Add DataPoint & Render</button></br>
+      Date:
+      <input id="x6" type="date" step="any" placeholder="Enter X-Value">Plastic Surgery:
+      <input id="y6" type="number" step="any" placeholder="Number of Surgeries">
+
+      <button id="render5">Add DataPoint & Render</button></br>
+
+      <div id="chartContainer" style="height: 270px; width: 100%;">
+      </div>
+
+
+<button id="downloadCSV">Download Chart Data as CSV</button>
+
+  </body>
+</html>

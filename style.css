@@ -1,0 +1,165 @@
+
+
+body{
+  margin: 0;
+  background-image: url(images/bg.jpg);
+  font-weight: 300;
+  font-family: sans-serif;
+}
+p{
+  padding-left: 25px;
+}
+a {
+  /* This flexbox code stretches the link's clickable
+   * area to fit its parent block. */
+  display:        flex;
+  flex-grow:      1;
+  flex-shrink:    1;
+  justify-content: center;
+}
+p{
+  margin: 0;
+  right: 0;
+  background-color: green;
+}
+.main{
+  width: 80%;
+  margin: 0 auto;
+}
+header{
+
+  background: #556daa;
+  opacity: 90%;
+
+
+}
+
+.Sidenav li{
+
+  padding-left: 40px;
+  padding-top: 40px;
+  position: relative;
+
+}
+.Sidenav a{
+  color: #444;
+  text-decoration: none;
+  display: block;
+}
+
+.Sidenav{
+  width: 20%;
+  padding-bottom: 5px;
+  background: #556daa;
+}
+
+.Sidenav ul{
+  margin: 0;
+
+  list-style: none;
+}
+.Sidenav a:hover{
+  color: #000;
+}
+.Sidenav a::before{
+  content: '';
+  display: block;
+  height:0%;
+  width:5px;
+  background-color: #444;
+  position: absolute;
+
+  right: 0;
+  transition: all ease-in-out 250ms;
+}
+
+.Sidenav a:hover::before{
+  height:100%;
+}
+
+header::after{
+  content: '';
+  display: table;
+  clear: both;
+
+}
+
+.logo{
+  float: left;
+  padding: 10px 0;
+}
+nav{
+  float: right;
+
+}
+nav ul{
+margin: 0;
+padding: 0;
+list-style: none;
+
+}
+nav li{
+  display: inline-block;
+  margin-left: 70px;
+  padding-top: 30px;
+  position: relative;
+}
+nav a{
+  color: #444;
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+}
+nav a:hover{
+  color: #000;
+}
+nav a::before{
+  content: '';
+  display: block;
+  height:5px;
+  width:0%;
+  background-color: #444;
+  position: absolute;
+  top: 0;
+  transition: all ease-in-out 250ms;
+}
+nav a:hover::before{
+  width: 100%;
+}
+p {
+    font-family: verdana;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+head{
+
+}
