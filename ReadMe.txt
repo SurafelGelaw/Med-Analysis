@@ -2,7 +2,7 @@
 
 Instructions
 
-
+1. After you download the program, click on "index" html file to open the program.
 1. When you are presented with the home screen, select a department from the side navigation menu.
 2. When you are in a particular department, you are presented with input fields.
 3. Once there, you can manually insert as much as data as you want.
